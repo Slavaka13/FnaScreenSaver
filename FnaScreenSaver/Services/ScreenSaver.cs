@@ -17,15 +17,12 @@ namespace FnaScreenSaver.Services
         // Контейнер со снежинками
         private SnowflakeContainer? flakes;
 
-        // Графический менеджер
-        private readonly GraphicsDeviceManager graphics;
-
         /// <summary>
         /// Конструктор — настраиваю параметры игры.
         /// </summary>
         public ScreenSaver()
         {
-            graphics = new GraphicsDeviceManager(this)
+            var graphics = new GraphicsDeviceManager(this)
             {
                 IsFullScreen = true
             };

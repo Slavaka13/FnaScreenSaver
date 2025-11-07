@@ -59,9 +59,9 @@ namespace FnaScreenSaver.Services
                 flake.Left += move * WindEffect;
 
                 // Если снежинка ушла за экран — появится снова сверху
-                var sz = flake.Size;
-                flake.Top = Reposition(flake.Top, -sz, screenHeight + sz);
-                flake.Left = Reposition(flake.Left, -sz, screenWidth + sz);
+                var size = flake.Size;
+                flake.Top = Reposition(flake.Top, -size, screenHeight + size);
+                flake.Left = Reposition(flake.Left, -size, screenWidth + size);
 
                 // Обновляю элемент массива
                 allFlakes[i] = flake;
@@ -90,13 +90,13 @@ namespace FnaScreenSaver.Services
             var finalSize = DefaultSize / layer;
 
             // Рандомно размещаю снежинку в пределах экрана
-            var posX = randomizer.NextDouble() * screenWidth;
-            var posY = randomizer.NextDouble() * screenHeight;
+            var positionX = randomizer.NextDouble() * screenWidth;
+            var positionY = randomizer.NextDouble() * screenHeight;
 
             allFlakes[index].Speed = finalSpeed;
             allFlakes[index].Size = finalSize;
-            allFlakes[index].Left = posX;
-            allFlakes[index].Top = posY;
+            allFlakes[index].Left = positionX;
+            allFlakes[index].Top = positionY;
         }
 
         /// <summary>
