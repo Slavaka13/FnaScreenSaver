@@ -5,7 +5,7 @@ namespace FnaScreenSaver;
 internal static class Program
 {
     [STAThread]
-    static void Main()
+    public static void Main()
     {
         using var screenSaver = new ScreenSaver();
         screenSaver.Run();

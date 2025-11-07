@@ -36,7 +36,7 @@ namespace FnaScreenSaver.Services
             screenWidth = width;
             screenHeight = height;
 
-            for (int i = 0; i < allFlakes.Length; i++)
+            for (var i = 0; i < allFlakes.Length; i++)
             {
                 CreateFlake(i);
             }
@@ -47,19 +47,19 @@ namespace FnaScreenSaver.Services
         /// </summary>
         public void Update(GameTime gameTime)
         {
-            double delta = gameTime.ElapsedGameTime.TotalSeconds;
+            var delta = gameTime.ElapsedGameTime.TotalSeconds;
 
-            for (int i = 0; i < allFlakes.Length; i++)
+            for (var i = 0; i < allFlakes.Length; i++)
             {
                 var flake = allFlakes[i];
 
                 // Перемещаю снежинку вниз и чуть-чуть в сторону (ветер)
-                double move = flake.Speed * delta;
+                var move = flake.Speed * delta;
                 flake.Top += move;
                 flake.Left += move * WindEffect;
 
                 // Если снежинка ушла за экран — появится снова сверху
-                double sz = flake.Size;
+                var sz = flake.Size;
                 flake.Top = Reposition(flake.Top, -sz, screenHeight + sz);
                 flake.Left = Reposition(flake.Left, -sz, screenWidth + sz);
 
@@ -80,18 +80,18 @@ namespace FnaScreenSaver.Services
         private void CreateFlake(int index)
         {
             // Случайный разброс скорости (чуть быстрее или медленнее среднего)
-            double speedOffset = 1 + SpeedVariance * (randomizer.NextDouble() * 2 - 1);
+            var speedOffset = 1 + SpeedVariance * (randomizer.NextDouble() * 2 - 1);
 
             // Определяю "слой" — влияет и на размер, и на скорость
-            double layer = MinLayer + (MaxLayer - MinLayer) * randomizer.NextDouble();
+            var layer = MinLayer + (MaxLayer - MinLayer) * randomizer.NextDouble();
 
             // Чем ближе слой — тем крупнее и быстрее
-            double finalSpeed = (DefaultSpeed / layer) * speedOffset;
-            double finalSize = DefaultSize / layer;
+            var finalSpeed = (DefaultSpeed / layer) * speedOffset;
+            var finalSize = DefaultSize / layer;
 
             // Рандомно размещаю снежинку в пределах экрана
-            double posX = randomizer.NextDouble() * screenWidth;
-            double posY = randomizer.NextDouble() * screenHeight;
+            var posX = randomizer.NextDouble() * screenWidth;
+            var posY = randomizer.NextDouble() * screenHeight;
 
             allFlakes[index].Speed = finalSpeed;
             allFlakes[index].Size = finalSize;
@@ -104,7 +104,7 @@ namespace FnaScreenSaver.Services
         /// </summary>
         private static double Reposition(double value, double min, double max)
         {
-            double range = max - min;
+            var range = max - min;
             // Делаю обёртку, чтобы координаты "перетекали" через границы
             return value - range * Math.Floor((value - min) / range);
         }

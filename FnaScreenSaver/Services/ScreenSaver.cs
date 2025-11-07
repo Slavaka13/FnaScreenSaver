@@ -10,12 +10,12 @@ namespace FnaScreenSaver.Services
     internal class ScreenSaver : Game
     {
         // Спрайты и текстуры
-        private SpriteBatch spriteBatch = null!;
-        private Texture2D background = null!;
-        private Texture2D snowflakeTexture = null!;
+        private SpriteBatch? spriteBatch;
+        private Texture2D? background;
+        private Texture2D? snowflakeTexture;
 
         // Контейнер со снежинками
-        private SnowflakeContainer flakes = null!;
+        private SnowflakeContainer? flakes;
 
         // Графический менеджер
         private readonly GraphicsDeviceManager graphics;
@@ -38,8 +38,8 @@ namespace FnaScreenSaver.Services
         /// </summary>
         protected override void Initialize()
         {
-            var vp = GraphicsDevice.Viewport;
-            flakes = new SnowflakeContainer(vp.Width, vp.Height);
+            var viewport = GraphicsDevice.Viewport;
+            flakes = new SnowflakeContainer(viewport.Width, viewport.Height);
             base.Initialize();
         }
 
@@ -76,10 +76,9 @@ namespace FnaScreenSaver.Services
             if (Keyboard.GetState().GetPressedKeys().Length > 0)
             {
                 Exit();
-                return;
             }
 
-            flakes.Update(gameTime);
+            flakes?.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -89,6 +88,11 @@ namespace FnaScreenSaver.Services
         /// </summary>
         protected override void Draw(GameTime gameTime)
         {
+            GraphicsDevice.Clear(Color.White);
+
+            if (spriteBatch == null || background == null || snowflakeTexture == null || flakes == null)
+                return;
+
             spriteBatch.Begin();
 
             spriteBatch.Draw(background, GraphicsDevice.Viewport.Bounds, Color.White);
